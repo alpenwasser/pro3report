@@ -1,0 +1,237 @@
+There are a variety of tests that can be conducted to verify the performance and
+correctness of our  device.  The  following is a list of test fixtures and their
+expected results based on simulations.
+
+\subsection{Test Fixtures}
+
+\subsubsection{Trivial and Non-Trivial I-V Curves}
+
+Reproduction of a custom I-V  curve is tested by using the test fixture depicted
+in Figure \ref{fig:verification:iv-circuit-fix}.
+
+\begin{figure}[th!]
+    \centering
+    \includegraphics[width=.4\textwidth]{images/sim/iv-curve-circuit.png}
+    \caption{Test fixture for measuring the device's IV characteristic curve}
+    \label{fig:verification:iv-circuit-fix}
+\end{figure}
+
+The  voltage  and  current  is  measured  using  different resistive loads. This
+measurement is performed twice using two different I-V curve configurations; one
+``simple''  curve (using a single-cell  model)  and  one  ``complicated''  curve
+(using a  multi-cell  model  where  some of the cells are shaded). The resulting
+measurements are then compared with  the  theoretical  curves  seen  in  Figures
+\ref{fig:verification:iv-simple}  and  \ref{fig:verification:iv-complicated} and
+thus the device's accuracy can be evaluated.
+
+\begin{figure}[th!]
+    \centering
+    \begin{minipage}{.4\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/sim/iv-simple.png}
+        \caption{Current/voltage characteristic curve (blue) and power/voltage characteristic curve (red) of a single-cell solar panel}
+        \label{fig:verification:iv-simple}
+    \end{minipage}
+    \begin{minipage}{.4\textwidth}
+        \centering
+        \includegraphics[width=.95\textwidth]{images/sim/iv-complicated.png}
+        \caption{Current/voltage characteristic curve (blue) and power/voltage charactersticic curve (red) of a multi-cell solar panel, some cells are shaded, causing the staircase}
+        \label{fig:verification:iv-complicated}
+    \end{minipage}
+\end{figure}
+
+\subsubsection{Ripple Voltage and Ripple Current vs Resistive Load}
+
+Using LTspice\cite{ref:ltspice}, the circuit  of  our  regulator was modeled and
+the  peak-to-peak  ripple  current  and  voltage  was  simulated using different
+resistive  loads ranging from \SI{100}{\milli\ohm} to  \SI{1}{\kilo\ohm}  at  an
+output  voltage of \SI{12}{\volt}. Figure \ref{fig:verification:ripple_sim} is a
+plot  of  the   ripple   current   and   voltage   versus  the  resistive  load.
+
+\begin{figure}[th!]
+    \centering
+    \includegraphics[width=.7\textwidth]{images/sim/ripple-vs-load.pdf}
+    \caption{Simulation of the amplitude of the ripple voltage and ripple current vs different resistive loads, obtained using LTspice I-V's model of the LT3741}
+    \label{fig:verification:ripple_sim}
+\end{figure}
+
+\begin{minipage}{0.5\textwidth}
+    In  order   to  test  this   on  the   real  device,  a   constant  output
+    voltage   of  \SI{12}{\volt}   is  programmed   and  a   potentiometer  is
+    attached  to the  device's  output connectors,  as  illustrated in  Figure
+    \ref{fig:verification:ripple_fix}
+
+    The ripple  current is  measured over a  small sense  resistor $R_{sense}$
+    using  an oscilloscope. The  ripple  voltage is  measured  using a  second
+    channel of the oscilloscope by measuring the output voltage.
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{images/sim/ripple-fixture.png}
+    \captionof{figure}{Test fixture for measuring ripple voltage \& ripple current of the device}
+    \label{fig:verification:ripple_fix}
+\end{minipage}
+
+The peak-to-peak ripple voltage  and current is measured for different resistive
+loads ranging from \SI{100}{\milli\ohm} to \SI{1}{\kilo\ohm} and compared to the
+simulated model.
+
+\subsubsection{Power Absorbtion}
+
+\begin{minipage}{0.5\textwidth}
+    As  stated  in  the  specifications,  the device  must  have  the  ability
+    to  sink   current  as  well  as   source  current.   In  order   to  test
+    this,  the   device  is  programmed   to  output  \SI{12}{\volt}   and  is
+    connected  in  series  with  a  current limiting  resistor  and  a  second
+    power  source  set   to  a  higher  voltage,  as   illustrated  in  Figure
+    \ref{fig:verification:power_absorbtion_fix}.
+
+    The second  voltage source is  slowly increased until  \SI{3}{\ampere} are
+    flowing  through  the  current  limiting  resistor  $R_1$  (which  can  be
+    determined by  measuring the  voltage over said  resistor), all  while the
+    device's  output  voltage  is  closely monitored. The  output  voltage  is
+    expected to remain constant.
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{images/sim/power-absorbtion-fixture.png}
+    \captionof{figure}{Test fixture for measuring power absorbtion of the device.}
+    \label{fig:verification:power_absorbtion_fix}
+\end{minipage}
+
+
+
+\subsubsection{Transient Response}
+
+\begin{minipage}{0.5\textwidth}
+    This  test is  used  to  determine the  reaction  speed  of the  regulator
+    and  the  I-V  control  algorithm   when  switching  quickly  between  two
+    extreme  resistive  loads.    The  device  is  programmed   to  mimic  the
+    behaviour  of  a simple  solar  panel  model.   As illustrated  in  Figure
+    \ref{fig:verification:transient_fix} the output  voltage is measured using
+    an oscilloscope and  various resistive loads are switched on  and off over
+    the output using a MOSFET and a signal generator.
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{images/sim/transient-fixture.png}
+    \captionof{figure}{Test fixture for measuring the transient response of the device}
+    \label{fig:verification:transient_fix}
+\end{minipage}
+
+The frequency  of the signal  generator is  set to a  low value such  that the
+device's output  voltage is  always stable  before the  load is  changed.  The
+results of this  measurement will make a statement over  the propagation delay
+of the  algorithm as well as  the time it  takes for the voltage  to stabilise
+again.
+
+
+\subsubsection{Reactive Loads}
+
+In the coarse specification we  opted to test the device with various capacitive
+and  inductive  loads  out  of  curiosity. During the course of the  project  we
+learned that this is not an applicable test because reactive loads are primarily
+used for testing the behaviour of power factor correction -- which, according to
+the EN61000-3-2  regulations\cite{ref:pfc},  affect  devices consuming more than
+\SI{75}{\watt},  meaning  that  the main power supply we use already implements
+power factor correction and testing for this would  be meaningless. Furthermore,
+the measurements we obtain  from  tests  using  reactive  loads would require an
+immense  amount of additional research on our part before the results  could  be
+interpreted in any  meaningful way. For this reason we have decided to omit this
+test case.
+
+
+\subsection{Measurement Results}
+
+Unfortunately, we were unable to  operate the LT3741 for a period long enough to
+conduct any of the measurements listed above.  The same regulator model (LT3741)
+was  permanently  damaged  twice  in  a row. Please see the next section  for  a
+detailed analysis on what we think the issue is and how we would proceed if more
+time to do so were available.
+
+
+\subsection{Analysis of the Issue}
+\label{subsec:analysis_issue}
+
+The  first regulator output the correct voltage  of  \SI{12}{\volt}  when  being
+supplied  with  \SI{32}{\volt}.  Unplugging the device and re-plugging it into a
+\SI{36}{\volt}  power  supply  instantly  damaged  it  permanently.  After  some
+detailed measurements it  was  concluded  that  the  high-side driver inside the
+LT3741  was somehow damaged and not operating as it should. Our  assumption  was
+that -- since we were  operating  the device very closely to its maximum ratings
+of  \SI{40}{\volt} -- during switching, the high-side MOSFET driver was  exposed
+to transients exceeding the device's absolute maximum ratings  and thus damaging
+the driver permanently.
+
+The regulator was replaced  with a new one and the  supply voltage was lowered
+from \SI{36}{\volt}  to \SI{28}{\volt} in  order to  give more leeway  for the
+transient voltages. The new  regulator appeared to output  the correct voltage
+of  \SI{12}{\volt}, so  a resistive  load  of \SI{80}{\ohm}  was connected  to
+the  output of  the  regulator.  After  about  \SI{20}{\second} of  continuous
+operation, the  output voltage  again dropped and  the device  was permanently
+damaged. Unfortunately, we were  unable to capture some  vital measurements of
+the transients  we were looking for  to confirm our suspicions  from the first
+failure.  It is clear,  however, that the damage was not  caused by the device
+overheating, as none  of the components were remotely warm  to the touch. This
+seems to align with the transient theory.
+
+
+\subsection{Simulating the Issue}
+
+The physical  layout of the  regulator and the  MOSFETs is depicted  in Figure
+\ref{fig:verification:long_traces_pcb}.   The  traces  connecting  the  Switch
+(SW), High Gate (HG) and Low Gate  (LG) pins of the regulator to the switching
+MOSFETs  are  fairly  long  (>\SI{2}{\centi\metre}). Most  of  the  time,  the
+parasitic inductances and capacitances  are negligible. In this case, however,
+it turned out that they are not.
+
+The series  inductance  and  series  resistance  is  calculated using an on-line
+calculator\cite{ref:trace_inductance}\cite{ref:trace_resistance}   (the   width,
+length,    and    thickness    is    known   to    be    \SI{0.4}{\milli\metre},
+\SI{2}{\centi\metre}  and \SI{35}{\micro\metre} respectively) and added  to  the
+simulation   model  seen  in  Figure   \ref{fig:verification:long_traces_model}.
+
+\begin{figure}[th!]
+    \centering
+    \begin{minipage}{.6\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{images/pcb/long-traces.png}
+        \caption{Physical layout of MOSFETs and regulator}
+        \label{fig:verification:long_traces_pcb}
+    \end{minipage}
+    \begin{minipage}{.38\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{images/sim/lt3741-transients-circuit-real.png}
+        \caption{Simulation model with long traces}
+        \label{fig:verification:long_traces_model}
+    \end{minipage}
+\end{figure}
+
+The voltage on the SW pin of the regulator  is  simulated  and  plotted.  Figure
+\ref{fig:verification:long_traces_simulation}  compares  the   more   accurately
+modelled curve (in blue, labelled \emph{sw\_real})  with  the ideal model of the
+voltage on the SW pin (in yellow, labelled \emph{sw\_ideal}). The  two red lines
+represent  the  expected  maximum  voltage  (\SI{28}{\volt})  and  the  device's
+absolute maximum rating on the SW pin (\SI{40}{\volt}).
+
+\begin{figure}[th!]
+    \centering
+    \includegraphics[width=.7\textwidth]{images/sim/lt3741-transients-sim.png}
+    \caption{Simulation of voltage on SW pin. \emph{Yellow:} Idealised, \emph{blue:} actual, \emph{green}: actual, with series resistors as a fix.}
+    \label{fig:verification:long_traces_simulation}
+\end{figure}
+
+It is clear that these small parasitic  inductances have a huge impact. The real
+curve  (blue) exhibits ringing  with  an  amplitude  overshooting  the  expected
+maximum voltage by  almost  \SI{12}{\volt}! It is therefore very likely that the
+high driver was destroyed due to an over-voltage event.
+
+The immediate solution to this problem  is  to add resistors in series with each
+of  the  critical  connections  to  dampen  the  ringing.  The   effect   of   a
+\SI{3.3}{\ohm} resistor in series  with  each  connection  is  plotted in figure
+\ref{fig:verification:long_traces_simulation}     (green     curve,     labelled
+\emph{sw\_fix}). When compared  to  the  ideal  and real curves, we see that the
+peak voltage has been reduced to a much less dangerous level.
+
+The more  optimal solution  (more elegant  and cheaper) is  to modify  the PCB
+layout to drastically reduce the length of these traces.

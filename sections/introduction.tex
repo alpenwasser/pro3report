@@ -1,0 +1,53 @@
+% Structured according to Gertiser's feedback:
+% 1) Worum geht es?
+% 2) Ziel und Anforderungen
+% 3) Umsetzung -> Grobkonzept
+% 4) Resultate
+% 5) Aufbau der Arbeit
+
+% TODO: source for expensive shit
+
+Verifying the correct operation of equipment  used for testing solar arrays is
+currently difficult in  a controlled laboratory environment,  as no affordable
+solutions for this exist on the open market. To address this issue, the aim of
+this project was the development of a device capable of emulating the behavior
+of a  photovoltaic module. With this  device, test equipment  for photovoltaic
+modules can be verified to function  as specified in a laboratory conveniently
+and affordably.
+
+The primary characteristics  of our device should be compactness  (usable in a
+standard  laboratory environment),  the  capability to  emulate varying  solar
+irradiation levels,  being able  to be  used in  series with  other emulators,
+effiency with  regards to  power consumption  and losses,  and to  emulate the
+characteristic  curve of  an actual  PV module. A  more detailed  list of  the
+technical  requirements  can be  found  in  the specifications  (see  appendix
+\ref{appendix:specs} on page \pageref{appendix:specs}f)
+
+A microcontroller and a constant-current, constant-voltage step-down converter
+constitute the core of our device.  The microcontroller performs IO operations
+and implements  the regulation loop  used to control the  step-down converter,
+whereas  the  step-down converter  generates  the  output voltage  and  output
+current  corresponding  to  the  desired  operating  point  from  a  DC  power
+supply. The  entire design  is  based  around a  custom  PCB,  enabling us  to
+optimise impedances of  connections between critical components. Additionally,
+we can get very close in behavior to a potentially mass-produced product since
+trace lenghts, routing  and component placement are crucial  (see also section
+\ref{sec:verification}, beginning on page \pageref{sec:verification}).
+
+The device has a simple yet powerful user interface which can be controlled by
+a push-twist button and a modern OLED display. The device can also be remotely
+monitored and controlled from a PC via USB interface and custom software built
+on the  Qt application framework  and is  compatible with all  major operating
+systems~\cite{ref:qt}.  Our  device can emulate fairly  complex configurations
+of cells thanks to an efficient  use of computation resources and its powerful
+microprocessor.
+
+Section  \ref{sec:concept}   (p.  \pageref{sec:concept}ff)  of   this  reports
+deal  with   the  basic  concept  behind   our  solution. Component  selection
+and   PCB  design   are  documented   in  sections   \ref{sec:components}  (p.
+\pageref{sec:components}ff)   and   \ref{sec:pcb}  (p.   \pageref{sec:pcb}ff),
+respectively,   while    section   \ref{sec:software}   is    concerned   with
+software  (p. \pageref{sec:software}ff).   Section \ref{sec:verification}  (p.
+\pageref{sec:verification}ff)  deals with  testing  the device  and our  error
+analysis. Lastly, the conclusion can  be found in section \ref{sec:conclusion}
+on page \pageref{sec:conclusion}.

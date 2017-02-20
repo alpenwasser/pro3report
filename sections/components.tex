@@ -1,0 +1,53 @@
+In  this  section, the  selection  of  the  critical components  is  discussed
+in  detail. Mainly,  this concerns  the  microcontroller,  the power  delivery
+(both  external and  internal)  and  the circuitry  used  in conjunction  with
+the  step-down converter. A  more comprehensive  list of  components including
+costs can  be found  in appendix  \ref{appendix:components} beginning  on page
+\pageref{appendix:components}. The complete schematics are located in appendix
+\ref{appendix:schematics} on pages \pageref{appendix:schematics}ff.
+
+%\begin{itemize}
+%    \item
+%        Was sind die Anforderungen an die Stromversorgung?
+%    \item
+%        Weshalb wird der dsPIC33EP-Chip verwendet?
+%    \item
+%        Weshalb wird der LT3741 verwendet?
+%    \item
+%        Wie erfolgt die Ansteuerung des LT3741?
+%    \item
+%        Weshalb wurde das verwendete LCD gew\"ahlt?
+%    \item
+%        Wie wird die serielle Schnittstelle realisiert?
+%\end{itemize}
+
+% **************************************************************************** %
+\subsection{Microcontroller}
+% **************************************************************************** %
+
+\input{sections/components/dspic.tex}
+
+% **************************************************************************** %
+\subsection{36V Power Supply and Mains Input}
+% **************************************************************************** %
+
+\input{sections/components/psu}
+
+% **************************************************************************** %
+\subsection{Voltage Rails}
+% **************************************************************************** %
+
+\input{sections/components/rails}
+
+% **************************************************************************** %
+\subsection{LT3741}
+\label{subsec:lt3741}
+% **************************************************************************** %
+
+\input{sections/components/lt3741}
+
+% **************************************************************************** %
+%\subsection{Push/Twist Button}
+% **************************************************************************** %
+
+%\input{sections/components/button}

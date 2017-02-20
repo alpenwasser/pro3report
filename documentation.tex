@@ -1,0 +1,146 @@
+\documentclass{fhnwreport/fhnwreport}
+
+\input{preamble/packages.tex}
+\input{preamble/hyperref.tex}
+\input{preamble/title.tex}
+%\input{preamble/colfigure.tex}
+%\input{preamble/enumerate.tex}
+\input{preamble/code.tex}
+\input{preamble/siunitx.tex}
+
+
+\begin{document}
+
+\input{titlepage/titlepage.tex}
+
+% **************************************************************************** %
+\clearpage
+\pagestyle{empty}
+{
+    \section*{Abstract}
+    \label{sec:abstract}
+% **************************************************************************** %
+    \input{sections/abstract.tex}
+}
+
+
+% **************************************************************************** %
+\clearpage
+\pagestyle{empty}
+{
+    \renewcommand{\thispagestyle}[1]{}
+    \tableofcontents
+    %\vspace{35mm}
+    %\subsection*{Versionsgeschichte}
+    %\begin{itemize}
+    %    \item[]
+    %        %\emph{20.10.2015:} \texttt{Version 1}
+    %        \emph{10th Oct 2015:} \texttt{Version 0.1:} Einleitung \& Disposition
+    %    \item[]
+    %        \emph{2nd Jan 2015:} \texttt{Version 0.2:} Translation to English
+    %\end{itemize}
+}
+
+\clearpage
+\setcounter{page}{1}
+\pagestyle{headings}
+% **************************************************************************** %
+
+% **************************************************************************** %
+\clearpage
+\section{Introduction}
+\label{sec:introduction}
+% **************************************************************************** %
+\input{sections/introduction.tex}
+
+% **************************************************************************** %
+%\clearpage
+%\section{Task Description}
+%\label{sec:task}
+%% **************************************************************************** %
+%\input{sections/task.tex}
+
+
+% **************************************************************************** %
+\clearpage
+\section{Basic Concept}
+\label{sec:concept}
+% **************************************************************************** %
+\input{sections/concept.tex}
+
+
+% **************************************************************************** %
+%\clearpage
+\section{Component Selection}
+\label{sec:components}
+% **************************************************************************** %
+\input{sections/components.tex}
+
+
+% **************************************************************************** %
+\clearpage
+\section{PCB Design}
+\label{sec:pcb}
+% **************************************************************************** %
+\input{sections/pcb.tex}
+
+
+% **************************************************************************** %
+\clearpage
+\section{Software}
+\label{sec:software}
+% **************************************************************************** %
+The software  is split  into two  primary parts: The  firmware running  on the
+device itself,  and the  front-end \emph{Smooth}, used  to interface  with the
+device from a PC via USB.
+\subsection{Firmware}
+\label{subsec:firmware}
+\input{sections/firmware.tex}
+\subsection{Front-End}
+\label{subsec:frontend}
+\input{sections/frontend.tex}
+
+
+% **************************************************************************** %
+%\clearpage
+\section{Verification}
+\label{sec:verification}
+% **************************************************************************** %
+\input{sections/verification.tex}
+
+
+% **************************************************************************** %
+\clearpage
+\section{Conclusions}
+\label{sec:conclusion}
+% **************************************************************************** %
+\input{sections/conclusions.tex}
+
+
+% **************************************************************************** %
+%\clearpage
+%\section*{Unterschrift}
+%\label{sec:signature}
+% **************************************************************************** %
+%\input{sections/signature.tex}
+
+
+% **************************************************************************** %
+\clearpage
+\begin{appendices}
+    %\appendixpage
+    %\addappheadtotoc
+    %\appendix
+    %\section{Anhang}
+    \label{sec:appendix}
+    % ************************************************************************ %
+    \input{sections/appendix.tex}
+\end{appendices}
+
+% **************************************************************************** %
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{\bibname}
+\bibliography{bibliography/bibliography}{\bibliographystyle{bibliography/IEEEtrans.bst}}
+% **************************************************************************** %
+\end{document}
